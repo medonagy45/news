@@ -9,6 +9,8 @@ import {RootStackParamList} from './types/navigation';
 import {iOSDarkTheme} from './styles';
 import TopHeadlines from './views/TopHeadlines';
 import HeadlineDetails from './views/HeadlineDetails';
+import Settings from './views/Settings';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {LogBox} from 'react-native';
 
 LogBox.ignoreLogs([
@@ -19,7 +21,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator: React.FC = () => {
   const themeContext = useContext(ThemeContext);
-
   return (
     <Stack.Navigator initialRouteName="TopHeadlines">
       <Stack.Screen
@@ -40,6 +41,24 @@ const StackNavigator: React.FC = () => {
     </Stack.Navigator>
   );
 };
+const TabNavigator: React.FC = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator
+      initialRouteName="News"
+      screenOptions={{
+        tabBarLabelPosition: 'beside-icon',
+        tabBarLabelStyle: {
+          fontWeight: '700',
+          fontSize: 15,
+        },
+        tabBarIconStyle: {display: 'none'},
+      }}>
+      <Tab.Screen name="News" component={StackNavigator} />
+      <Tab.Screen name="Settings" component={Settings} />
+    </Tab.Navigator>
+  );
+};
 
 const App: React.FC = () => {
   const [theme] = useState(iOSDarkTheme);
@@ -48,7 +67,7 @@ const App: React.FC = () => {
     <NavigationContainer>
       <ThemeProvider theme={theme}>
         <SafeAreaProvider>
-          <StackNavigator />
+          <TabNavigator />
         </SafeAreaProvider>
       </ThemeProvider>
     </NavigationContainer>
