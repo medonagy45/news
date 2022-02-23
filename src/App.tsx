@@ -9,7 +9,11 @@ import {RootStackParamList} from './types/navigation';
 import {iOSDarkTheme} from './styles';
 import TopHeadlines from './views/TopHeadlines';
 import HeadlineDetails from './views/HeadlineDetails';
+import {LogBox} from 'react-native';
 
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+]);
 const Stack = createStackNavigator<RootStackParamList>();
 
 const StackNavigator: React.FC = () => {

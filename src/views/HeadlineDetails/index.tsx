@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
-import {Dimensions, Linking, ScrollView, Text, View} from 'react-native';
+import React from 'react';
+import {Dimensions, Image, Linking, ScrollView, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {RouteProp} from '@react-navigation/native';
 import styled from 'styled-components/native';
-import AutoHeightImage from 'react-native-image-auto-height';
 
 import {RootStackParamList} from '../../types/navigation';
 import ArticleDate from '../../components/ArticleDate';
@@ -32,7 +31,6 @@ const HeadlineDetails: React.FC<Props> = ({route}) => {
         {article.author ? <Author>{article.author}</Author> : null}
         {article.urlToImage && (
           <StyledAutoHeightImage
-            accessibilityIgnoresInvertColors={false}
             source={{uri: article.urlToImage}}
             width={Dimensions.get('screen').width * 0.8}
           />
@@ -77,8 +75,10 @@ const Author = styled(Text)`
   margin-top: 5%;
 `;
 
-const StyledAutoHeightImage = styled(AutoHeightImage)`
+const StyledAutoHeightImage = styled(Image)`
   margin-top: 5%;
+  width: ${(props): number => (props.width ? props.width : 100)};
+  height: 100;
 `;
 
 const Description = styled(Text)`

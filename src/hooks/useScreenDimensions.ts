@@ -1,30 +1,31 @@
-import {useEffect, useState} from 'react';
-import {Dimensions, ScaledSize} from 'react-native';
+import { useEffect, useState } from "react"
+import { Dimensions, ScaledSize } from "react-native"
 
 interface ScreenDimensions extends ScaledSize {
-  isLandscape: boolean;
+	isLandscape: boolean
 }
 
 const useScreenDimensions = (): ScreenDimensions => {
-  const [screenData, setScreenData] = useState(Dimensions.get('screen'));
+	const [screenData, setScreenData] = useState(Dimensions.get("screen"))
 
-  useEffect(() => {
-    const handleChange = (result: {
-      window: ScaledSize;
-      screen: ScaledSize;
-    }): void => {
-      setScreenData(result.screen);
-    };
+	useEffect(() => {
+		const handleChange = (result: {
+			window: ScaledSize
+			screen: ScaledSize
+		}): void => {
+			setScreenData(result.screen)
+		}
 
-    Dimensions.addEventListener('change', handleChange);
+		Dimensions.addEventListener("change", handleChange)
 
-    return (): void => Dimensions.removeEventListener('change', handleChange);
-  });
+		return (): void =>
+			Dimensions.removeEventListener("change", handleChange)
+	})
 
-  return {
-    ...screenData,
-    isLandscape: screenData.width > screenData.height,
-  };
-};
+	return {
+		...screenData,
+		isLandscape: screenData.width > screenData.height,
+	}
+}
 
-export default useScreenDimensions;
+export default useScreenDimensions

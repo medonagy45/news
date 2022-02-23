@@ -1,8 +1,7 @@
 import React from 'react';
-import {Dimensions, View} from 'react-native';
+import {Dimensions, Image, View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
-import AutoHeightImage from 'react-native-image-auto-height';
 
 import {Article} from '../../types/article';
 import Link from '../Link';
@@ -17,10 +16,8 @@ interface Props {
 interface DimensionProps {
   isLandscape: boolean;
 }
-
 const ArticleCard: React.FC<Props> = ({article}) => {
   const navigation = useNavigation();
-
   const {isLandscape} = useScreenDimensions();
   const imageWidth = Dimensions.get('screen').width * (isLandscape ? 0.3 : 0.8);
 
@@ -28,9 +25,9 @@ const ArticleCard: React.FC<Props> = ({article}) => {
     <BoxShadow>
       <ArticleWrapper isLandscape={isLandscape}>
         {article.urlToImage && (
-          <StyledAutoHeightImage
-            accessibilityIgnoresInvertColors={false}
+          <StyledImage
             source={{uri: article.urlToImage}}
+            resizeMode="stretch"
             width={imageWidth}
             isLandscape={isLandscape}
           />
@@ -82,9 +79,9 @@ const Row = styled(View)`
   justify-content: space-between;
 `;
 
-const StyledAutoHeightImage = styled(AutoHeightImage)<DimensionProps>`
-  border-radius: ${(props): string =>
-    props.isLandscape ? props.theme.borderRadius : '0px'};
+const StyledImage = styled(Image)<DimensionProps>`
+  height: 100;
+  width: ${(props): number => (props.width ? props.width : 100)};
 `;
 
 export default ArticleCard;
