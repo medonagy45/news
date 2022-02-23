@@ -14,7 +14,6 @@ const Headlines: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       let articles = await fetchHeadlines();
-      console.log(articles);
       setData(articles);
       setLoading(false);
     }

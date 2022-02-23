@@ -1,7 +1,7 @@
-// import {API_KEY} from 'react-native-dotenv';
+import {API_KEY} from 'react-native-dotenv';
 import {Article} from '../types/article';
 
-const url = `https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=079fefcc36fb41919ccc02ec168a5584`;
+const url = `https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=${API_KEY}`;
 
 // This function allows you to fetch articles directly from the REST API instead of directing through GraphQL
 export async function fetchHeadlines(): Promise<Article[]> {

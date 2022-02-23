@@ -7,7 +7,7 @@ module.exports = {
         moduleName: 'react-native-dotenv',
         path: '.env',
         blacklist: null,
-        whitelist: ['MARVEL_API', 'MARVEL_PUBLIC_KEY', 'MARVEL_PRIVATE_KEY'],
+        whitelist: ['API_KEY'],
         safe: false,
         allowUndefined: true,
       },
