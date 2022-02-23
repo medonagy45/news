@@ -4,7 +4,10 @@ import {Article} from '../types/article';
 const url = `https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=${API_KEY}`;
 
 // This function allows you to fetch articles directly from the REST API instead of directing through GraphQL
-export async function fetchHeadlines(text: string): Promise<Article[]> {
+export async function fetchHeadlines(
+  text: string | undefined,
+): Promise<Article[]> {
+  console.log('load data', text);
   let fetchUrl = url;
   if (text) {
     fetchUrl += `&q=${text}`;

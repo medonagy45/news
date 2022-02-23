@@ -32,6 +32,7 @@ const HeadlineDetails: React.FC<Props> = ({route}) => {
         {article.urlToImage && (
           <StyledAutoHeightImage
             source={{uri: article.urlToImage}}
+            resizeMode="stretch"
             width={Dimensions.get('screen').width * 0.8}
           />
         )}
@@ -77,8 +78,8 @@ const Author = styled(Text)`
 
 const StyledAutoHeightImage = styled(Image)`
   margin-top: 5%;
-  width: ${(props): number => (props.width ? props.width : 100)};
-  height: 100;
+  height: 250px;
+  width: ${(props): number => (props.width ? props.width : 100)}px;
 `;
 
 const Description = styled(Text)`

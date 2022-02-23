@@ -80,8 +80,8 @@ const Row = styled(View)`
 `;
 
 const StyledImage = styled(Image)<DimensionProps>`
-  height: 100;
-  width: ${(props): number => (props.width ? props.width : 100)};
+  height: 150px;
+  width: ${(props): number => (props.width ? props.width : 100)}px;
 `;
 
 export default ArticleCard;

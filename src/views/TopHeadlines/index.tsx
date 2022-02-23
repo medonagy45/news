@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, TextInput} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
@@ -9,21 +9,18 @@ import {fetchHeadlines} from '../../utils/fetchHeadlines';
 import {Article} from '../../types/article';
 
 const TopHeadlines: React.FC = () => {
-  const [text, onChangeText] = React.useState('Useless Text');
+  const [text, onChangeText] = React.useState('');
   const [data, setData] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-  let fetchData = async (query: string) => {
-    let articles = await fetchHeadlines(query);
+  let fetchData = useCallback(async () => {
+    let articles = await fetchHeadlines(text);
     setData(articles);
     setLoading(false);
-  };
-  useEffect(() => {
-    fetchData('');
-  });
+  }, [text]);
   useEffect(() => {
     setLoading(true);
-    fetchData(text);
-  }, [text]);
+    fetchData();
+  }, [fetchData]);
   return (
     <StyledSafeAreaView>
       <Container>
