@@ -9,7 +9,6 @@ import {RootStackParamList} from '../../types/navigation';
 import ArticleDate from '../../components/ArticleDate';
 import ArticleTitle from '../../components/ArticleTitle';
 import Link from '../../components/Link';
-import {FavoritesContext} from '../../utils/store';
 import normalize from '../../utils/normalize';
 
 type HeadlineDetailsScreenRouteProp = RouteProp<
@@ -22,11 +21,6 @@ interface Props {
 
 const HeadlineDetails: React.FC<Props> = ({route}) => {
   const article = route.params.article;
-  const {favorites, handleSelection} = useContext(FavoritesContext);
-
-  const handleStarPress = (): void => {
-    handleSelection(article.title);
-  };
 
   return (
     <StyledSafeAreaView>

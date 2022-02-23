@@ -1,36 +1,37 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ActivityIndicator, FlatList, View, Text} from 'react-native';
 import styled from 'styled-components/native';
 
 import {Article} from '../../types/article';
 import ArticleCard from '../../components/ArticleCard';
 import normalize from '../../utils/normalize';
+import {fetchHeadlines} from '../../utils/fetchHeadlines';
 
 const Headlines: React.FC = () => {
   //   const {loading, error, data, refetch} = useQuery(GET_TOP_HEADLINES);
-
-  //   if (loading) {
-  //     return <Spinner />;
-  //   }
-
-  //   if (error) {
-  //     return (
-  //       <Error>
-  //         <ErrorText>Error fetching headlines.</ErrorText>
-  //       </Error>
-  //     );
-  //   }
+  const [data, setData] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function fetchData() {
+      let articles = await fetchHeadlines();
+      console.log(articles);
+      setData(articles);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Articles>
-      <Text>Hello</Text>
-      {/* <StyledFlatList
-        data={data.headlines.articles}
+      <FlatList
+        data={data}
         renderItem={({item}: {item: Article}) => <ArticleCard article={item} />}
         keyExtractor={(item): string => item.title}
         refreshing={loading}
-        onRefresh={refetch}
-      /> */}
+      />
     </Articles>
   );
 };
@@ -44,17 +45,8 @@ const Articles = styled(View)`
   margin-top: 5%;
 `;
 
-const Error = styled(View)`
-  align-items: center;
-  flex: 1;
-  justify-content: center;
-`;
-const ErrorText = styled(Text)`
-  font-size: ${normalize(15) + 'px'};
-`;
-
-const StyledFlatList = styled(FlatList as new () => FlatList<Article>)`
-  width: 100%;
-`;
+// const StyledFlatList = styled(FlatList as new () => FlatList<Article[]>)`
+//   width: 100%;
+// `;
 
 export default Headlines;

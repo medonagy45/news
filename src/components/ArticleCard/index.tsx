@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Dimensions, View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
@@ -8,7 +8,6 @@ import {Article} from '../../types/article';
 import Link from '../Link';
 import ArticleDate from '../ArticleDate';
 import ArticleTitle from '../ArticleTitle';
-import {FavoritesContext} from '../../utils/store';
 import useScreenDimensions from '../../hooks/useScreenDimensions';
 
 interface Props {
@@ -21,11 +20,6 @@ interface DimensionProps {
 
 const ArticleCard: React.FC<Props> = ({article}) => {
   const navigation = useNavigation();
-  const {favorites, handleSelection} = useContext(FavoritesContext);
-
-  const handleStarPress = (): void => {
-    handleSelection(article.title);
-  };
 
   const {isLandscape} = useScreenDimensions();
   const imageWidth = Dimensions.get('screen').width * (isLandscape ? 0.3 : 0.8);
